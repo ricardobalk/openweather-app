@@ -19,9 +19,10 @@
   provide('selectedLocation', selectedLocation); // Provider voor de geselecteerde locatie tbv child components.
 
   const filteredLineGraphData = reactive({
-    xAxis: [1,2,3],
-    yAxis: [2,3,4],
+    xAxis: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
+    yAxis: [20, 21, 25, 23, 23, 24, 23, 20, 18],
   }); // Reactive array voor de gefilterde data.
+  provide('filteredLineGraphData', filteredLineGraphData);
 
   // Watch 'selectedLocation':
   // - als de geselecteerde locatie verandert, haal de data op van de OpenWeather API.

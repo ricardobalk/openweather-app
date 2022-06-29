@@ -12,7 +12,7 @@
 </style>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, inject, computed } from 'vue';
 import ApexChart from 'vue3-apexcharts';
 
 export const LineChart = defineComponent({
@@ -20,24 +20,22 @@ export const LineChart = defineComponent({
     components: {
         ApexChart
     },
-    props: {
-      xAxis: {
-        type: Array,
-        required: true,
-        default: ['12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
-      },
-      yAxis: {
-        type: Array,
-        required: true,
-        default: [20, 21, 25, 23, 23, 24, 23, 20, 18],
-      }
-    },
-    setup(props) {
-        const chartData = [{
-              name: "Temperatuur",
-              data: props.yAxis
-          }];
-          const chartOptions = {
+
+    setup() {
+        const filteredLineGraphData = inject('filteredLineGraphData');
+
+        const xAxisD = computed(() => filteredLineGraphData.xAxis);
+        const yAxisD = computed(() => filteredLineGraphData.yAxis);
+        
+        const chartData = computed(() => {
+            return [{
+                name: "Temperatuur",
+                data: yAxisD.value,
+            }]});
+
+
+          const chartOptions = computed(() => {
+            return {
             chart: {
               height: 350,
               type: 'line',
@@ -62,9 +60,10 @@ export const LineChart = defineComponent({
               },
             },
             xaxis: {
-              categories: props.xAxis,
+              categories: xAxisD.value,
             }
           };
+          })
           return {chartData, chartOptions};
     }
 });
