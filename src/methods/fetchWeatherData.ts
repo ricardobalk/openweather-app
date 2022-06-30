@@ -16,6 +16,7 @@ export const fetchWeatherData = async ({city}: fetchWeatherDataType) => {
     const apiEndpoint = new URL('https://api.openweathermap.org/data/2.5/forecast');
     apiEndpoint.searchParams.append('q', city);
     apiEndpoint.searchParams.append('APPID', apiKey);
+    apiEndpoint.searchParams.append('units', 'metric');
     const response = await fetch(apiEndpoint.href);
     if (response.status !== 200) {
         throw new Error(`Error fetching weather data for ${city}: ${response.status}`);

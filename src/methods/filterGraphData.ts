@@ -11,7 +11,7 @@ export const filterGraphData = (graphData: Record<string, any>) => {
 
         const timeString = `${hour}:00`;
         const dateString = `${day}-${month}-${year}`;
-        const temperature = item.main.temp / 10;
+        const temperature = item.main.temp;
 
         filteredData.push(
             {
